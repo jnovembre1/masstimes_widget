@@ -1,0 +1,45 @@
+<div class="full-width-wrapper">
+  <div class="masstimes-container">
+
+    <div id="masstimes-map" class="map-pane"></div>
+
+    <aside class="mass-sidebar">
+
+      {# search box and autocomplete suggestions  #}
+      <div class="mass-sidebar-header">
+        <form id="mass-search-form" class="mass-search-form">
+          <div class="mass-search-input" style="position:relative;">
+            <input
+              type="text"
+              id="mass-search-input"
+              placeholder="{{ 'Search by ZIP or City, State'|t }}"
+              autocomplete="off"
+              required
+            />
+            <button type="submit" class="mass-search-button" aria-label="{{ 'Search'|t }}">
+              <i class="fa fa-search"></i>
+            </button>
+            <ul id="mass-search-suggestions" class="mass-search-suggestions"></ul>
+          </div>
+        </form>
+      </div>
+
+      <div class="mass-content">
+        {% if settings.parishes %}
+          {% for i, church in settings.parishes %}
+            <details class="parish-card" data-index="{{ i }}">
+              <summary>{{ church.name }}</summary>
+              <div class="parish-body">
+                {{ include('@masstimes_widget/churchinfo.html.twig', { church: church }) }}
+              </div>
+            </details>
+          {% endfor %}
+        {% else %}
+          <p class="no-parishes">{{ 'No parishes found.'|t }}</p>
+        {% endif %}
+      </div>
+
+    </aside>
+
+  </div>
+</div>

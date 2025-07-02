@@ -1,0 +1,4 @@
+services:
+  masstimes_widget.service:
+    class: Drupal\masstimes_widget\MassTimesService
+    arguments: ['@http_client']

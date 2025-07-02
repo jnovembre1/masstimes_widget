@@ -1,0 +1,13 @@
+masstimes_map:
+  version: 1.x
+  css:
+    theme:
+      css/masstimes_map.css: {}
+      https://unpkg.com/leaflet/dist/leaflet.css: { type: external }
+  js:
+    https://unpkg.com/leaflet/dist/leaflet.js: { type: external, minified: true }
+    js/masstimes_map.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/once

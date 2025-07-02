@@ -1,0 +1,81 @@
+<p>
+  <i class="fa fa-map-marker-alt"></i>
+  {{ church.church_address_street_address }}, {{ church.church_address_city_name }}
+</p>
+{% if church.phone_number %}
+  <p>
+    <i class="fa fa-phone"></i>
+    <a href="tel:{{ church.phone_number }}">{{ church.phone_number }}</a>
+  </p>
+{% endif %}
+{% if church.url %}
+  <p>
+    <i class="fa fa-globe"></i>
+    <a href="{{ church.url }}" target="_blank" rel="noopener">
+      {{ church.url }}
+    </a>
+  </p>
+{% endif %}
+
+<h4>Mass Times</h4>
+
+{% set weekend = [] %}
+{% set weekdays = [] %}
+{% set confessions = [] %}
+{% set adorations = [] %}
+
+{% for t in church.church_worship_times %}
+  {% set type = (t.service_typename|lower) %}
+  {% if type matches '/weekend/' %}
+    {% set weekend    = weekend|merge([t]) %}
+  {% elseif type matches '/confess/' %}
+    {% set confessions= confessions|merge([t]) %}
+  {% elseif type matches '/adorat/' %}
+    {% set adorations = adorations|merge([t]) %}
+  {% else %}
+    {% set weekdays   = weekdays|merge([t]) %}
+  {% endif %}
+{% endfor %}
+
+{% macro render_group(times, label) %}
+  {% import _self as self %}
+  {% if times|length %}
+    <div class="times-group">
+      <h5>{{ label }}</h5>
+      <dl>
+        {% set days = [] %}
+        {% for t in times %}
+          {% set d = t.day_of_week|trim %}
+          {% if d not in days %}
+            {% set days = days|merge([d]) %}
+          {% endif %}
+        {% endfor %}
+
+        {% for d in days %}
+          <dt>{{ d }}</dt>
+          <dd>
+            {% set slots = [] %}
+            {% for t in times %}
+              {% if t.day_of_week|trim == d %}
+                {% set start = t.time_start|date("g:i A", "America/New_York") %}
+                {% if t.time_end %}
+                  {% set end = t.time_end|date("g:i A", "America/New_York") %}
+                  {% set slot = start ~ '–' ~ end %}
+                {% else %}
+                  {% set slot = start %}
+                {% endif %}
+                {% set slots = slots|merge([slot]) %}
+              {% endif %}
+            {% endfor %}
+            {{ slots|join(', ') }}
+          </dd>
+        {% endfor %}
+      </dl>
+    </div>
+  {% endif %}
+{% endmacro %}
+
+{{ _self.render_group(weekend,    'WEEKEND') }}
+{{ _self.render_group(weekdays,   'WEEK DAYS') }}
+{{ _self.render_group(confessions,'CONFESSIONS') }}
+{{ _self.render_group(adorations,'ADORATIONS') }}

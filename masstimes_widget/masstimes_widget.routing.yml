@@ -1,0 +1,14 @@
+masstimes.api_fetch:
+  path: '/masstimes/fetch-data'
+  defaults:
+    _controller: 'Drupal\masstimes_widget\Controller\MasstimesController::output'
+    _title: 'Fetch API Data'
+  requirements:
+    _permission: 'access content'
+
+masstimes.location_data_processing:
+  path: '/masstimes/user_location'
+  defaults:
+    _controller: '\Drupal\masstimes_widget\Controller\MasstimesController::processing'
+  requirements:
+    _permission: 'access content'
