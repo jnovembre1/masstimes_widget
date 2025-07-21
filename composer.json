@@ -1,0 +1,13 @@
+{
+    "name": "faithcatholic/masstimes_widget",
+    "description": "A custom Drupal module embedding a full-screen interactive map and sidebar list of Catholic parishes, powered by the MassTimes Trust database & API.",
+    "type": "drupal-module",
+    "authors": [
+        {
+            "name": "Joseph",
+            "email": "josephnovem@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
