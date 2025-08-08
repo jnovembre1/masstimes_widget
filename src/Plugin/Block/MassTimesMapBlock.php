@@ -132,6 +132,7 @@ class MassTimesMapBlock extends BlockBase implements ContainerFactoryPluginInter
           'name'    => $p['name'] ?? '',
           'address' => $p['church_address_street_address'] ?? '',
           'wptimes' => $p['church_worship_times'] ?? [],
+          'distance' => round($p['distance'], 1),
         ],
       ];
     }

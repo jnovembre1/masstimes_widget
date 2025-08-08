@@ -90,6 +90,14 @@
           onEachFeature(feature, layer) {
             layer.bindPopup(feature.properties.name);
             layer.on('click', () => {
+              const props = feature.properties;
+              let popupContent = `<div class="leaflet-popup-content" style="font-size: 1.2rem; font-weight: bold;">${props.name}</div>`;
+              
+              if (props.distance !== null && props.distance !== undefined) {
+                popupContent += `<div class="leaflet-popup-content" style="font-size: 1rem;">${props.distance} miles away</div>`;
+              }
+              
+              layer.bindPopup(popupContent);
               const idx = feature.properties.index;
               const detail = document.querySelector(`.parish-card[data-index="${idx}"]`);
               if (detail) {

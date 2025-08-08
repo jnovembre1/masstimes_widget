@@ -2,6 +2,11 @@
   <i class="fa fa-map-marker-alt"></i>
   {{ church.church_address_street_address }}, {{ church.church_address_city_name }}
 </p>
+{% if church.distance is not null %}
+<p>
+  <i class="fa fa-road"></i>&nbsp;{{ church.distance|round(1) }} miles away
+</p>
+{% endif %}
 {% if church.phone_number %}
   <p>
     <i class="fa fa-phone"></i>
@@ -22,6 +27,7 @@
 {% set weekend = [] %}
 {% set weekdays = [] %}
 {% set confessions = [] %}
+{% set holydays = [] %}
 {% set adorations = [] %}
 
 {% for t in church.church_worship_times %}
@@ -32,6 +38,8 @@
     {% set confessions= confessions|merge([t]) %}
   {% elseif type matches '/adorat/' %}
     {% set adorations = adorations|merge([t]) %}
+  {% elseif type matches '/holy days/' %}
+    {% set holydays = holydays|merge([t]) %}
   {% else %}
     {% set weekdays   = weekdays|merge([t]) %}
   {% endif %}
@@ -78,4 +86,8 @@
 {{ _self.render_group(weekend,    'WEEKEND') }}
 {{ _self.render_group(weekdays,   'WEEK DAYS') }}
 {{ _self.render_group(confessions,'CONFESSIONS') }}
+{{ _self.render_group(holydays,'HOLY DAYS') }}
 {{ _self.render_group(adorations,'ADORATIONS') }}
+
+<h5><i>Data provided by Masstimes.org</i><h16>
+
