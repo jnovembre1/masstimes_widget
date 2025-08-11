@@ -1,37 +1,35 @@
 /* ─────────────────────────────────────────────────────────────────────────
-   FULL-WIDTH LAYOUT
+   BASE LAYOUT & PANES
 ────────────────────────────────────────────────────────────────────────── */
 .full-width-wrapper {
+  box-sizing: border-box !important;
+  margin: 0 -50vw !important;
+  padding: 0 1rem !important;
   position: relative !important;
   left: 50% !important;
   right: 50% !important;
-  margin-left: -50vw !important;
-  margin-right: -50vw !important;
   width: 100vw !important;
   max-width: none !important;
-  box-sizing: border-box !important;
-  padding: 0 1rem !important;
 }
 
-/* ─────────────────────────────────────────────────────────────────────────
-   CONTAINER & PANES
-────────────────────────────────────────────────────────────────────────── */
 .masstimes-container {
   display: flex !important;
   gap: 1rem !important;
   height: 100% !important;
+  margin-bottom: 5rem !important;
 }
 
-.map-pane {
+.map-pane, .mass-sidebar {
   flex: none !important;
-  width: 66% !important;
-  border: 2px solid #ddd !important;
-  min-height: 500px !important;
   height: 500px !important;
 }
 
+.map-pane {
+  border: 2px solid #ddd !important;
+  width: 66% !important;
+}
+
 .mass-sidebar {
-  flex: none !important;
   width: 360px !important;
   max-height: 500px !important;
   display: flex !important;
@@ -56,17 +54,6 @@
   position: relative !important;
 }
 
-.mass-sidebar-close {
-  position: absolute !important;
-  top: 1rem !important;
-  right: 1rem !important;
-  background: none !important;
-  border: none !important;
-  font-size: 1.25rem !important;
-  cursor: pointer !important;
-  color: #777 !important;
-}
-
 .sidebar-title {
   margin: 0 !important;
   font-size: 1.75rem !important;
@@ -85,28 +72,19 @@
   gap: .5rem !important;
 }
 
-.mass-search-input,
-.mass-search-select {
+.mass-search-input {
+  flex: 2 !important;
   position: relative !important;
 }
 
-.mass-search-input {
-  flex: 2 !important;
-}
-
-.mass-search-select {
-  flex: 1 !important;
-}
-
-.mass-search-input input,
-.mass-search-select select {
+#mass-search-input {
   width: 100% !important;
   padding: .5rem 2.5rem .5rem .75rem !important;
   border: 1px solid #ccc !important;
   border-radius: .25rem !important;
 }
 
-.mass-search-input button {
+.mass-search-button {
   position: absolute !important;
   right: .5rem !important;
   top: 50% !important;
@@ -118,17 +96,29 @@
   font-size: 1rem !important;
 }
 
-.mass-search-select i {
-  position: absolute !important;
-  right: .75rem !important;
-  top: 50% !important;
-  transform: translateY(-50%) !important;
-  pointer-events: none !important;
-  color: #627d94 !important;
+.mass-search-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid #ccc;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
+.mass-search-suggestions li {
+  padding: .5rem;
+  cursor: pointer;
+}
+.mass-search-suggestions li:hover { background: #f0f0f0; }
+
 /* ─────────────────────────────────────────────────────────────────────────
-   PARISH CARDS (DETAILS + SUMMARY)
+   PARISH CARDS
 ────────────────────────────────────────────────────────────────────────── */
 .parish-card {
   margin-bottom: 1rem !important;
@@ -149,16 +139,14 @@
   display: block !important;
   padding: 1rem 1.5rem !important;
   background: #f7fafc !important;
-  font-size: 1.5rem !important;
+  font-size: 1.2rem !important; /* REDUCED */
   font-weight: 600 !important;
   color: #1a202c !important;
   cursor: pointer !important;
   list-style: none !important;
 }
 
-.parish-card summary::-webkit-details-marker {
-  display: none !important;
-}
+.parish-card summary::-webkit-details-marker { display: none !important; }
 
 .parish-card summary::after {
   content: "\f078" !important;
@@ -175,74 +163,46 @@
   transform: translateY(-50%) rotate(-180deg) !important;
 }
 
-/* ─────────────────────────────────────────────────────────────────────────
-   PARISH BODY
-────────────────────────────────────────────────────────────────────────── */
-.parish-body {
-  padding: 1rem 1.5rem 1.5rem !important;
+.parish-distance {
+  font-size: 0.8rem !important; 
+  font-weight: 400 !important;
+  color: #555 !important;
+  margin-left: 0.5rem !important;
 }
 
-.parish-body p,
-.parish-contact li {
+/* ─────────────────────────────────────────────────────────────────────────
+   PARISH BODY & TIMES
+────────────────────────────────────────────────────────────────────────── */
+.parish-body { padding: 1rem 1.5rem 1.5rem !important; }
+
+.parish-body p, .parish-contact li {
   display: flex !important;
   align-items: center !important;
   margin-bottom: .75rem !important;
-  font-size: 1.75rem !important;
+  font-size: 0.9rem !important; 
+  line-height: 1.4 !important;
   color: #4a5568 !important;
 }
 
-.parish-body p i,
-.parish-contact li i {
+.parish-body p i, .parish-contact li i,
+.full-width-wrapper .parish-body p > svg,
+.full-width-wrapper .parish-contact li > svg {
   display: inline-block !important;
   width: 1.25rem !important;
   text-align: center !important;
   margin-right: .75rem !important;
-  font-size: 1.75rem !important;
   color: #2b6cb0 !important;
+  vertical-align: middle !important;
 }
 
-.parish-body p a,
-.parish-contact li a {
+.parish-body p a, .parish-contact li a {
   color: inherit !important;
   text-decoration: none !important;
 }
 
-.parish-body h4 {
+.parish-body h4, .times-group h5 {
   margin: 1.25rem 0 .5rem !important;
-  font-size: 1.75rem !important;
-  color: #2d3748 !important;
-}
-
-/* ─────────────────────────────────────────────────────────────────────────
-   CONTACT & TIMES LISTS
-────────────────────────────────────────────────────────────────────────── */
-.parish-contact {
-  list-style: none !important;
-  padding: 0 !important;
-  margin: 0 !important;
-}
-
-.mass-times {
-  list-style: none !important;
-  padding: 0 !important;
-  margin: .5rem 0 0 !important;
-}
-
-.mass-times li {
-  margin-bottom: .25rem !important;
-  font-size: .95rem !important;
-}
-
-/* ─────────────────────────────────────────────────────────────────────────
-   TIMES GROUPS
-────────────────────────────────────────────────────────────────────────── */
-.times-group {
-  margin-top: .75rem !important;
-}
-
-.times-group h5 {
-  margin: 1rem 0 .5rem !important;
-  font-size: 1.65rem !important;
+  font-size: 1.1rem !important; 
   font-weight: 700 !important;
   color: #4a5568 !important;
   text-transform: uppercase !important;
@@ -251,41 +211,41 @@
   padding-bottom: .25rem !important;
 }
 
+.parish-contact, .mass-times {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.mass-times li {
+  margin-bottom: .25rem !important;
+  font-size: .95rem !important;
+}
+
 .times-group dl {
   display: grid !important;
   grid-template-columns: auto 1fr !important;
-  column-gap: 1rem !important;
-  row-gap: .5rem !important;
+  gap: .5rem 1rem !important;
   margin: .5rem 0 0 !important;
 }
 
-.times-group dt,
-.times-group dd {
-  font-size: 1.4rem !important;
+.times-group dt, .times-group dd {
+  font-size: 0.9rem !important; 
   line-height: 1.4 !important;
-}
-
-.times-group dt {
-  font-weight: 600 !important;
   color: #2d3748 !important;
 }
 
-.times-group dd {
-  text-align: right !important;
-  color: #2d3748 !important;
-}
+.times-group dt { font-weight: 600 !important; }
+.times-group dd { text-align: right !important; }
 
 /* ─────────────────────────────────────────────────────────────────────────
-   NO PARISHES MESSAGE
+   MISC & HELPERS
 ────────────────────────────────────────────────────────────────────────── */
 .no-parishes {
   color: #777 !important;
   font-style: italic !important;
 }
 
-/* ─────────────────────────────────────────────────────────────────────────
-   CHURCH MARKER ICON
-────────────────────────────────────────────────────────────────────────── */
 .church-marker {
   text-align: center !important;
   line-height: 24px !important;
@@ -297,79 +257,19 @@
   text-shadow: 0 1px 2px rgba(0,0,0,0.3) !important;
 }
 
-/* ─────────────────────────────────────────────────────────────────────────
-   SEARCH BAR
-────────────────────────────────────────────────────────────────────────── */
-.mass-search-suggestions {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  background: #fff;
-  border: 1px solid #ccc;
-  max-height: 200px;
-  overflow-y: auto;
-  z-index: 1000;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.mass-search-suggestions li {
-  padding: .5rem;
-  cursor: pointer;
-}
-.mass-search-suggestions li:hover {
-  background: #f0f0f0;
-}
-
-
-/* ─────────────────────────────────────────────────────────────────────────
-   FINAL FONT FIX 
-────────────────────────────────────────────────────────────────────────── */
-.church-info p,
-.parish-body p,
-.parish-contact li,
-.times-group dt,
-.times-group dd {
-  font-size: 1.4rem !important;
-  line-height: 1.4 !important;
-}
-
-.church-info p i,
-.parish-body p i,
-.parish-contact li i {
-  margin-right: .75rem !important;
-}
-
-/* ─────────────────────────────────────────────────────────────────────────
-   SVG ICON GAP FIX (must be last, with !important)
-────────────────────────────────────────────────────────────────────────── */
-.full-width-wrapper .parish-body p > svg,
-.full-width-wrapper .parish-contact li > svg {
-  display: inline-block !important;
-  vertical-align: middle !important;
-  margin-right: 0.75rem !important;
-}
-/* ─────────────────────────────────────────────────────────────────────────
-   ADJUSTS FONT FOR CHURCH NAME WHEN CLICKING ON MAP ICON
-────────────────────────────────────────────────────────────────────────── */
-.leaflet-popup-content {
-  font-size: 1.4rem !important;
-}
+.leaflet-popup-content { font-size: 1.1rem !important; } 
 
 /* ─────────────────────────────────────────────────────────────────────────
    MOBILE (<= 768px) RESPONSIVE LAYOUT
 ────────────────────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
-  .masstimes-container {
-    flex-direction: column !important;
-    gap: 0 !important;
-  }
+  .masstimes-container { flex-direction: column !important; gap: 0 !important; }
 
   .map-pane {
     width: 100% !important;
     height: 300px !important;   
     margin-bottom: 1rem !important;
+    border: none !important;
   }
 
   .mass-sidebar {
@@ -379,25 +279,16 @@
     border: none !important;
   }
 
-  .mass-sidebar-header {
-    padding: 1rem !important;
-  }
-
-  .mass-content {
-    padding: 0.5rem 1rem 1rem !important;
-  }
+  .mass-sidebar-header { padding: 1rem !important; }
+  .mass-content { padding: 0.5rem 1rem 1rem !important; }
 
   .parish-card summary {
-    font-size: 1.25rem !important;
+    font-size: 1.1rem !important; 
     padding: 0.75rem 1rem !important;
   }
 
-  .parish-body p,
-  .parish-body h4,
-  .times-group h5,
-  .times-group dt,
-  .times-group dd {
-    font-size: 1rem !important;
+  .parish-body p, .parish-body h4, .times-group h5, .times-group dt, .times-group dd {
+    font-size: 0.9rem !important; 
     line-height: 1.4 !important;
   }
 }

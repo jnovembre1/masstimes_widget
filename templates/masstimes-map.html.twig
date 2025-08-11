@@ -28,8 +28,10 @@
         {% if settings.parishes %}
           {% for i, church in settings.parishes %}
             <details class="parish-card" data-index="{{ i }}">
-              <summary>{{ church.name }}</summary>
-              <div class="parish-body">
+              <summary>
+                {{ church.name }}
+                <span class="parish-distance">{{ church.distance|round(1) }} miles away</span>
+              </summary>              <div class="parish-body">
                 {{ include('@masstimes_widget/churchinfo.html.twig', { church: church }) }}
               </div>
             </details>
